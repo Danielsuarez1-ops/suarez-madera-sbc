@@ -6,6 +6,14 @@ Integrantes:
 - Edison Daniel Suárez
 - Brayan Darío Madera
 
+## App en línea
+
+La aplicación está publicada en Streamlit Community Cloud y se puede usar sin instalar nada:
+
+**https://suarez-madera-sbc.streamlit.app/**
+
+(Si lleva varios días sin usarse puede salir un botón para "despertarla"; se le da clic y en unos segundos carga.)
+
 ## De qué se trata
 
 Es un sistema experto (sistema basado en conocimiento) con una página web hecha en Streamlit. Sirve para clasificar los incidentes que llegan a una mesa de ayuda de TI.
