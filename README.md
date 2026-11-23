@@ -98,6 +98,48 @@ Debe salir `10 de 10 casos salieron bien`.
 
 El manual completo está en `docs/manual_usuario.pdf`.
 
+## Ejemplo de uso (con capturas reales)
+
+Para el ejemplo usamos el **Caso 7**: a un usuario le hackearon la cuenta y, por eso, el sistema de facturación quedó caído para toda el área. Lo reporta un gerente.
+
+**1. Se cargan los datos del incidente.** Desde la barra de la izquierda se escoge el caso y se le da "Cargar caso". Las casillas quedan marcadas solas (también se pueden marcar a mano).
+
+![Formulario con el caso cargado](docs/img/1_formulario.png)
+
+**2. Se le da "Clasificar incidente".** El sistema dice que la prioridad es **crítica** (sale en rojo), que el impacto es **alto** y que el incidente cae en 3 categorías: seguridad, acceso y software. Debajo sale qué hacer con cada una y que hay que avisarle al coordinador.
+
+![Resultado de la clasificación](docs/img/2_resultado.png)
+
+**3. Se revisa la explicación.** Aparecen las reglas que se usaron, en orden y con su certeza, y la cadena de razonamiento escrita en palabras. En este caso se activaron 8 de las 15 reglas.
+
+![Reglas aplicadas y cadena de razonamiento](docs/img/3_explicacion.png)
+
+**4. Se le pregunta "¿Por qué?".** Se escoge una conclusión y el sistema explica de dónde salió, yendo hacia atrás hasta lo que marcó el usuario.
+
+![Explicación del botón ¿Por qué?](docs/img/4_porque.png)
+
+**¿Y si faltan datos?** Si solo se marca, por ejemplo, que afecta a varios usuarios y que es un gerente, pero no se dice qué está pasando, el sistema avisa que no puede clasificarlo (Caso 6):
+
+![Aviso cuando no hay conclusión](docs/img/5_sin_conclusion.png)
+
+Y si se le da clasificar sin marcar nada, no deja seguir:
+
+![Mensaje de validación](docs/img/6_validacion.png)
+
+## Dificultades que tuvimos
+
+No fue todo a la primera. Estas fueron las cosas que más nos hicieron pensar:
+
+1. **Dos reglas daban prioridades distintas.** Con un virus en un solo PC, una regla decía "crítica" (por ser de seguridad) y otra decía "baja" (porque es un solo usuario). Lo resolvimos haciendo que cada regla diga la prioridad *mínima* y que al final quede la más alta. En soporte es mejor pasarse que quedarse corto.
+
+2. **Un PC dañado salía también como problema de software.** Si el computador no prende, obviamente el programa tampoco abre, y el sistema lo marcaba como las dos cosas. Le agregamos a la regla R4 la condición "y NO hay falla del equipo".
+
+3. **Los resultados se borraban al darle "¿Por qué?".** Streamlit vuelve a correr todo el archivo cada vez que uno da un clic, y se perdía lo que ya se había calculado. Lo arreglamos guardando el resultado en `st.session_state`.
+
+4. **Los textos de las casillas se cortaban.** Al principio estaban en dos columnas y las frases largas quedaban con "...". Las pasamos a una sola columna y ya se leen completas.
+
+5. **Publicarla en Streamlit Cloud.** Por defecto Streamlit busca un archivo llamado `streamlit_app.py` en la carpeta principal, y el nuestro es `src/app.py`, así que hubo que cambiar esa ruta al configurar la app. También tocó darle permiso a Streamlit para leer el repositorio de GitHub.
+
 ## Video de demo
 
 Link: _(pendiente)_
