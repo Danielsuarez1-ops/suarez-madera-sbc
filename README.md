@@ -131,16 +131,9 @@ Y si se le da clasificar sin marcar nada, no deja seguir:
 
 No fue todo a la primera. Estas fueron las cosas que más nos hicieron pensar:
 
-1. **Dos reglas daban prioridades distintas.** Con un virus en un solo PC, una regla decía "crítica" (por ser de seguridad) y otra decía "baja" (porque es un solo usuario). Lo resolvimos haciendo que cada regla diga la prioridad *mínima* y que al final quede la más alta. En soporte es mejor pasarse que quedarse corto.
+1. **Los resultados se borraban al darle "¿Por qué?".** Streamlit vuelve a correr todo el archivo cada vez que uno da un clic, y se perdía lo que ya se había calculado. Lo arreglamos guardando el resultado en `st.session_state`.
 
-2. **Un PC dañado salía también como problema de software.** Si el computador no prende, obviamente el programa tampoco abre, y el sistema lo marcaba como las dos cosas. Le agregamos a la regla R4 la condición "y NO hay falla del equipo".
+2. **Los textos de las casillas se cortaban.** Al principio estaban en dos columnas y las frases largas quedaban con "...". Las pasamos a una sola columna y ya se leen completas.
 
-3. **Los resultados se borraban al darle "¿Por qué?".** Streamlit vuelve a correr todo el archivo cada vez que uno da un clic, y se perdía lo que ya se había calculado. Lo arreglamos guardando el resultado en `st.session_state`.
+3. **Publicarla en Streamlit Cloud.** Por defecto Streamlit busca un archivo llamado `streamlit_app.py` en la carpeta principal, y el nuestro es `src/app.py`, así que hubo que cambiar esa ruta al configurar la app. También tocó darle permiso a Streamlit para leer el repositorio de GitHub.
 
-4. **Los textos de las casillas se cortaban.** Al principio estaban en dos columnas y las frases largas quedaban con "...". Las pasamos a una sola columna y ya se leen completas.
-
-5. **Publicarla en Streamlit Cloud.** Por defecto Streamlit busca un archivo llamado `streamlit_app.py` en la carpeta principal, y el nuestro es `src/app.py`, así que hubo que cambiar esa ruta al configurar la app. También tocó darle permiso a Streamlit para leer el repositorio de GitHub.
-
-## Video de demo
-
-Link: _(pendiente)_
