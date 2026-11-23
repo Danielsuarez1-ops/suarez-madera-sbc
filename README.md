@@ -42,7 +42,8 @@ suarez-madera-sbc/
 │   └── app.py                 # página web en Streamlit
 ├── docs/
 │   ├── documentacion_tecnica.pdf   (y .docx editable)
-│   └── manual_usuario.pdf          (y .docx editable)
+│   ├── manual_usuario.pdf          (y .docx editable)
+│   └── img/                   # capturas de la app que salen en este README
 └── tests/
     ├── casos_prueba.md        # tabla con los casos de prueba
     └── probar_casos.py        # script que corre todos los casos
