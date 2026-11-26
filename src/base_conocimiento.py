@@ -218,7 +218,7 @@ QUE_HACER = {
 
 
 # ---------------------------------------------------------------
-# 4. AYUDAS PARA EL USUARIO (no son reglas, solo hacen la pagina mas facil)
+# 4. AYUDAS PARA EL USUARIO
 # ---------------------------------------------------------------
 
 # Ejemplos que salen al pasar el mouse por el signo (?) de cada casilla
