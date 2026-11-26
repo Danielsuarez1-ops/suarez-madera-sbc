@@ -36,7 +36,7 @@ suarez-madera-sbc/
 ├── README.md
 ├── requirements.txt
 ├── src/
-│   ├── base_conocimiento.py   # predicados, reglas y tablas de recomendaciones
+│   ├── base_conocimiento.py   # predicados, reglas, recomendaciones y ayudas de la página
 │   ├── motor_inferencia.py    # encadenamiento hacia adelante y explicaciones
 │   ├── casos_prueba.py        # casos precargados (para la demo y las pruebas)
 │   └── app.py                 # página web en Streamlit
@@ -91,41 +91,66 @@ Debe salir `10 de 10 casos salieron bien`.
 
 ## Cómo se usa (rápido)
 
-1. Marcar las casillas de lo que está pasando y a quién afecta, o cargar un caso de prueba desde la barra de la izquierda.
-2. Darle **Clasificar incidente**.
-3. Ver el resultado (prioridad, impacto, categoría y qué hacer).
-4. Bajar a **Explicación** para ver las reglas usadas y darle **¿Por qué?** para ver el detalle.
-5. **Limpiar todo** para empezar otro incidente.
+La página está organizada en 3 pasos:
+
+1. **Paso 1 (opcional):** escribir el problema con sus propias palabras y darle **Sugerir casillas con lo que escribí**. El sistema marca las casillas que parecen aplicar.
+2. **Paso 2:** revisar y marcar las casillas de lo que está pasando y a quién afecta. Cada opción tiene un signo **(?)** con ejemplos. También se puede cargar un caso de prueba desde la barra de la izquierda.
+3. **Paso 3:** darle **Clasificar incidente**.
+
+Después sale el resultado (prioridad, impacto, categoría y qué hacer) y la explicación con las reglas usadas y el botón **¿Por qué?**. Con **Clasificar otro incidente** o **Limpiar todo** se empieza de nuevo.
 
 El manual completo está en `docs/manual_usuario.pdf`.
 
+## ¿Sirve solo para los 10 casos de prueba?
+
+No. Los 10 casos son solo ejemplos para probar rápido. El sistema clasifica **cualquier incidente**, porque lo que usa son las 8 casillas, y cualquier problema se puede describir con ellas.
+
+El cuadro de texto del paso 1 ayuda a marcar las casillas: busca palabras como "virus", "clave", "impresora", "no abre", "todos" o "gerente" y marca la casilla que corresponde. Pero **no clasifica por sí solo**: la clasificación la siguen haciendo las 15 reglas con las casillas marcadas. Por eso siempre hay que revisar las casillas antes de darle clasificar.
+
 ## Ejemplo de uso (con capturas reales)
 
-Para el ejemplo usamos el **Caso 7**: a un usuario le hackearon la cuenta y, por eso, el sistema de facturación quedó caído para toda el área. Lo reporta un gerente.
+Para el ejemplo usamos un problema que **no está** en los casos de prueba: *"A todo el piso de cartera no le abre el sistema de facturación"*.
 
-**1. Se cargan los datos del incidente.** Desde la barra de la izquierda se escoge el caso y se le da "Cargar caso". Las casillas quedan marcadas solas (también se pueden marcar a mano).
+**1. Pantalla principal.** A la izquierda está la ayuda de cómo se usa, los casos de prueba y qué significa cada prioridad. En el centro están los 3 pasos.
 
-![Formulario con el caso cargado](docs/img/1_formulario.png)
+![Pantalla principal](docs/img/1_pantalla_principal.png)
 
-**2. Se le da "Clasificar incidente".** El sistema dice que la prioridad es **crítica** (sale en rojo), que el impacto es **alto** y que el incidente cae en 3 categorías: seguridad, acceso y software. Debajo sale qué hacer con cada una y que hay que avisarle al coordinador.
+**2. Se escribe el problema y se le da "Sugerir casillas".** El sistema reconoce "no le abre", "todo el piso" y "facturación", y marca 3 casillas: el servicio no funciona, afecta a más de un usuario y es un sistema importante. Siempre avisa que hay que revisarlas.
 
-![Resultado de la clasificación](docs/img/2_resultado.png)
+![Sugerir casillas con lo que se escribió](docs/img/2_sugerir_casillas.png)
 
-**3. Se revisa la explicación.** Aparecen las reglas que se usaron, en orden y con su certeza, y la cadena de razonamiento escrita en palabras. En este caso se activaron 8 de las 15 reglas.
+**3. Se le da "Clasificar incidente".** Sale la prioridad **crítica** en rojo, con lo que significa ("hay que atenderlo YA"), un resumen en una frase y la lista de qué hacer: atender en máximo 30 minutos, pasar a soporte nivel 2 y avisar al coordinador.
 
-![Reglas aplicadas y cadena de razonamiento](docs/img/3_explicacion.png)
+![Resultado de la clasificación](docs/img/3_resultado.png)
 
-**4. Se le pregunta "¿Por qué?".** Se escoge una conclusión y el sistema explica de dónde salió, yendo hacia atrás hasta lo que marcó el usuario.
+**4. Se revisa cómo llegó a la respuesta.** En pestañas están las reglas que se aplicaron, la cadena de razonamiento (en la imagen) y el log del motor.
 
-![Explicación del botón ¿Por qué?](docs/img/4_porque.png)
+![Cadena de razonamiento](docs/img/4_explicacion.png)
 
-**¿Y si faltan datos?** Si solo se marca, por ejemplo, que afecta a varios usuarios y que es un gerente, pero no se dice qué está pasando, el sistema avisa que no puede clasificarlo (Caso 6):
+**5. Se le pregunta "¿Por qué?".** Se escoge una conclusión y el sistema explica de dónde salió, yendo hacia atrás hasta lo que marcó el usuario.
 
-![Aviso cuando no hay conclusión](docs/img/5_sin_conclusion.png)
+![Explicación del botón ¿Por qué?](docs/img/5_porque.png)
+
+**¿Y si faltan datos?** Si solo se marca, por ejemplo, que afecta a varios usuarios y que es un gerente, pero no se dice qué está pasando, el sistema avisa que no puede clasificarlo y dice qué falta (Caso 6):
+
+![Aviso cuando no hay conclusión](docs/img/6_sin_conclusion.png)
 
 Y si se le da clasificar sin marcar nada, no deja seguir:
 
-![Mensaje de validación](docs/img/6_validacion.png)
+![Mensaje de validación](docs/img/7_validacion.png)
+
+## Mejoras a la interfaz
+
+Después de la primera versión le hicimos cambios a la página para que fuera más fácil de entender, sin quitarle nada de lo que ya tenía:
+
+- La página quedó en **3 pasos numerados**, para que se sepa qué hacer primero.
+- El cuadro de descripción ahora sirve: con **Sugerir casillas** marca las opciones según lo que se escribió.
+- Cada casilla tiene un signo **(?)** con ejemplos de cuándo marcarla.
+- En la barra izquierda hay una ayuda de **cómo se usa** y qué significa **cada prioridad**.
+- El resultado dice la prioridad **en palabras** ("hay que atenderlo YA") y trae un resumen en una frase.
+- "Qué hacer ahora" quedó como una **lista numerada**.
+- La explicación quedó organizada en **pestañas** (reglas, cadena de razonamiento y log), para que no se vea todo amontonado.
+- Se agregó el botón **Clasificar otro incidente** al final del resultado.
 
 ## Dificultades que tuvimos
 

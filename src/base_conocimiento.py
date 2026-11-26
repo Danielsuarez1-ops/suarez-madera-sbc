@@ -215,3 +215,50 @@ QUE_HACER = {
     'acceso': 'Mesa de ayuda (nivel 1) valida la identidad del usuario y desbloquea o ajusta permisos.',
     'software': 'Pasar a soporte nivel 2 para revisar el programa o servicio (logs, servidor, reinicio).',
 }
+
+
+# ---------------------------------------------------------------
+# 4. AYUDAS PARA EL USUARIO (no son reglas, solo hacen la pagina mas facil)
+# ---------------------------------------------------------------
+
+# Ejemplos que salen al pasar el mouse por el signo (?) de cada casilla
+AYUDA = {
+    'servicio_caido': 'Ej: el correo no abre, el sistema de facturación no carga, la página sale en error.',
+    'falla_equipo': 'Ej: el PC no prende, la impresora se atasca, el monitor se ve negro, el cable está roto.',
+    'problema_acceso': 'Ej: se bloqueó el usuario, olvidó la clave, no tiene permiso para entrar a una carpeta.',
+    'sospecha_seguridad': 'Ej: llegó un correo raro pidiendo la clave, el PC muestra mensajes extraños, se perdieron archivos.',
+    'varios_usuarios': 'Márcalo si le pasa a más de una persona (por ejemplo, a toda un área).',
+    'sistema_critico': 'Sistemas sin los que la empresa no puede trabajar: facturación, correo, ERP, nómina.',
+    'usuario_vip': 'Márcalo si quien reporta es gerente, director o alguien de la alta dirección.',
+    'hay_alternativa': 'Ej: puede imprimir en otra impresora o trabajar desde otro PC mientras se arregla.',
+}
+
+# Que quiere decir cada prioridad, en palabras sencillas
+SIGNIFICADO_PRIORIDAD = {
+    'critica': 'Hay que atenderlo YA, dejando lo demás.',
+    'alta': 'Es urgente, se atiende antes que los casos normales.',
+    'media': 'Se atiende hoy mismo, en orden.',
+    'baja': 'Se puede atender en orden de llegada, no es urgente.',
+}
+
+# Palabras que, si aparecen en la descripcion, sugieren marcar una casilla.
+# Esto NO clasifica nada: solo marca casillas para que el usuario las revise.
+# La clasificacion la siguen haciendo las reglas.
+PALABRAS_CLAVE = {
+    'servicio_caido': ['no abre', 'no le abre', 'no me abre', 'no les abre',
+                       'no funciona', 'no le funciona', 'no me funciona', 'no les funciona',
+                       'no carga', 'no le carga', 'no me carga', 'no responde', 'no sirve',
+                       'caido', 'se cayo', 'error', 'no deja entrar al sistema', 'no hay sistema'],
+    'falla_equipo': ['no prende', 'no enciende', 'impresora', 'monitor', 'pantalla', 'teclado',
+                     'mouse', 'cable', 'se dano', 'danado', 'danada', 'se quemo', 'computador', 'portatil'],
+    'problema_acceso': ['clave', 'contrasena', 'bloque', 'permiso', 'acceso',
+                        'no puedo entrar', 'login', 'credencial'],
+    'sospecha_seguridad': ['virus', 'hacke', 'phishing', 'correo raro', 'correo sospechoso',
+                           'link raro', 'enlace raro', 'robo', 'ransomware', 'malware', 'sospech', 'secuestr'],
+    'varios_usuarios': ['todos', 'varios', 'toda el area', 'todo el piso', 'toda la oficina',
+                        'companeros', 'nadie puede', 'toda la empresa', 'muchos'],
+    'sistema_critico': ['facturacion', 'correo', 'erp', 'nomina', 'contabilidad', 'cartera', 'sap'],
+    'usuario_vip': ['gerente', 'director', 'presidente', 'vicepresidente'],
+    'hay_alternativa': ['otra impresora', 'otro pc', 'otro equipo', 'otro computador', 'mientras tanto',
+                        'puede seguir', 'alterna'],
+}
