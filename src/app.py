@@ -151,11 +151,11 @@ st.caption('Pasa el mouse por el signo (?) de cada opción para ver ejemplos.')
 
 st.markdown('**¿Qué está pasando?** (marca por lo menos una)')
 for e in ENTRADAS_QUE_PASA:
-    st.checkbox(PREDICADOS[e], key='chk_' + e, help=AYUDA[e], on_change=borrar_resultado)
+    st.checkbox(PREDICADOS[e], key='chk_' + e, help=AYUDA.get(e), on_change=borrar_resultado)
 
 st.markdown('**¿A quién afecta?**')
 for e in ENTRADAS_A_QUIEN:
-    st.checkbox(PREDICADOS[e], key='chk_' + e, help=AYUDA[e], on_change=borrar_resultado)
+    st.checkbox(PREDICADOS[e], key='chk_' + e, help=AYUDA.get(e), on_change=borrar_resultado)
 
 marcadas = sum(st.session_state['chk_' + e] for e in ENTRADAS)
 st.caption(f'Llevas {marcadas} de {len(ENTRADAS)} opciones marcadas.')
